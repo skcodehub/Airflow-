@@ -2,6 +2,15 @@ from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 from airflow.contrib.hooks.aws_hook import AwsHook
+"""
+StageToRedshiftOperator loads data from S3 to stage tables in Redshift. This takes the following arguments:
+redshift connection
+aws credentials
+stage table name
+S3_bucket where the source data is
+s3_key which is the sub directory path of the source file location
+json_path if a specific format of JSON file is defined
+"""
 
 class StageToRedshiftOperator(BaseOperator):
     ui_color = '#358140'
