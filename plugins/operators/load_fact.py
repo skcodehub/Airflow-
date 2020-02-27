@@ -1,7 +1,12 @@
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
-
+"""
+    LoadFactOperator loads dimension tables to Redshift based on the query provided
+    redshift connection
+    insert statement for fact table
+    
+"""
 class LoadFactOperator(BaseOperator):
 
     ui_color = '#F98866'
