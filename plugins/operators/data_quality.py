@@ -2,7 +2,13 @@ from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 import array
-
+"""
+    DataQualityOperator checks to see if a specified column in the table has NULL value and raises an error if a NULL row is found.
+    redshift connection
+    list of table names
+    list of column names 
+    ** This operator assumes that the one column name per table and that columns are listed in the order of table to which the column belongs
+"""
 class DataQualityOperator(BaseOperator):
 
     ui_color = '#89DA59'
