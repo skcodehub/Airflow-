@@ -9,7 +9,16 @@ from helpers import SqlQueries
 
 # AWS_KEY = os.environ.get('AWS_KEY')
 # AWS_SECRET = os.environ.get('AWS_SECRET')
-
+"""
+  This dag contains calls to other Operators to load data from S3 to Redshift stage tables, and then load from 
+  stage to fact and dimension tables. Once the tables are loaded, there is call to a data quality check operator that checks for NULL values.
+  The runtime properties among others are 
+  1. to catch up past runs, job starts on 2018-11-1 and ends 2018-11-30
+  2. future runs wait for past runs to complete, 
+  3. retries 3 times upon failure and 
+  4. runs within 5 minutes of failure
+  
+"""
 default_args = {
     'owner': 'udacity',
     'depends_on_past': True,
@@ -119,5 +128,3 @@ load_song_dimension_table >> run_quality_checks
 load_artist_dimension_table >> run_quality_checks
 load_time_dimension_table >> run_quality_checks
 run_quality_checks  >> end_operator
-#stage_events_to_redshift >> end_operator
-#stage_songs_to_redshift >> end_operator
