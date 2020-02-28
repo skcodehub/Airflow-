@@ -36,7 +36,7 @@ class LoadFactOperator(BaseOperator):
     def execute(self, context):
         self.log.info('Loading fact table')
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
-        st_date = context.get("execution_date")
+        st_date = context.get("ds")
         del_stmt = "DELETE FROM {} WHERE TRUNC(start_time) ='{}'".format(self.table, st_date)  
         if self.del_ind:
             redshift.run(del_stmt)
