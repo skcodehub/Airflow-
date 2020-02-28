@@ -36,7 +36,7 @@ dag = DAG('udac_example_dag',
           description='Load and transform data in Redshift with Airflow',
           schedule_interval='0 * * * *',
           start_date = datetime(2018, 11, 1,0,0,0,0),
-          end_date = datetime(2018, 11, 5,0,0,0,0),
+          end_date = datetime(2018, 11, 5,0,0,0,0)
           #schedule_interval='@daily'
           #schedule_interval="@once"
         )
