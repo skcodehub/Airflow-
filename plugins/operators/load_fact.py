@@ -4,10 +4,9 @@ from airflow.utils.decorators import apply_defaults
 """
     LoadFactOperator loads dimension tables to Redshift based on the query provided with an option to truncate fact table each time
     redshift connection
-    boolean indicator to truncate fact
+    boolean indicator to delete fact
     fact table name
-    insert statement for fact table
-    
+    insert statement for fact table    
 """
 class LoadFactOperator(BaseOperator):
 
@@ -37,7 +36,8 @@ class LoadFactOperator(BaseOperator):
     def execute(self, context):
         self.log.info('Loading fact table')
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
-        del_stmt = "TRUNCATE {}".format(self.table)
+        st_date = context.get("execution_date")
+        del_stmt = "DELETE FROM {} WHERE TRUNC(start_time) ='{}'".format(self.table, st_date)  
         if self.del_ind:
             redshift.run(del_stmt)
         fact_insert = self.fact_insert
