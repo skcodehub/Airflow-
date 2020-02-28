@@ -34,10 +34,10 @@ dag = DAG('udac_example_dag',
           max_active_runs=1,
           catchup=True,
           description='Load and transform data in Redshift with Airflow',
-          #schedule_interval='0 * * * *',
+          schedule_interval='0 * * * *',
           start_date = datetime(2018, 11, 1,0,0,0,0),
           end_date = datetime(2018, 11, 5,0,0,0,0),
-          schedule_interval='@daily'
+          #schedule_interval='@daily'
           #schedule_interval="@once"
         )
 
@@ -76,7 +76,7 @@ load_songplays_table = LoadFactOperator(
     provide_context=True,
     redshift_conn_id="redshift",
     table = "public.songplays",
-    del_ind = False,
+    del_ind = True,
     fact_insert = "INSERT INTO public.songplays {}".format(SqlQueries.songplay_table_insert)
 )
 
