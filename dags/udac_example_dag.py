@@ -74,6 +74,8 @@ load_songplays_table = LoadFactOperator(
     task_id='Load_songplays_fact_table',
     dag=dag,
     redshift_conn_id="redshift",
+    table = "public.songplays",
+    del_ind = False,
     fact_insert = "INSERT INTO public.songplays {}".format(SqlQueries.songplay_table_insert)
 )
 
@@ -81,6 +83,8 @@ load_user_dimension_table = LoadDimensionOperator(
     task_id='Load_user_dim_table',
     dag=dag,
     redshift_conn_id="redshift",
+    table = "public.users",
+    del_ind = True,
     dim_insert = "INSERT INTO public.users {}".format(SqlQueries.user_table_insert)
 )
 
@@ -88,6 +92,8 @@ load_song_dimension_table = LoadDimensionOperator(
     task_id='Load_song_dim_table',
     dag=dag,
     redshift_conn_id="redshift",
+    table = "public.songs",
+    del_ind = True,
     dim_insert = "INSERT INTO public.songs {}".format(SqlQueries.song_table_insert)
 )
 
@@ -95,6 +101,8 @@ load_artist_dimension_table = LoadDimensionOperator(
     task_id='Load_artist_dim_table',
     dag=dag,
     redshift_conn_id="redshift",
+    table = "public.artists",
+    del_ind = True,
     dim_insert = "INSERT INTO public.artists {}".format(SqlQueries.artist_table_insert)
 )
 
@@ -102,6 +110,8 @@ load_time_dimension_table = LoadDimensionOperator(
     task_id='Load_time_dim_table',
     dag=dag,
     redshift_conn_id="redshift",
+    table = "public.time_table",
+    del_ind = True,
     dim_insert = "INSERT INTO public.time_table {}".format(SqlQueries.time_table_insert)
 )
 
