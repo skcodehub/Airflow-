@@ -38,7 +38,7 @@ class LoadFactOperator(BaseOperator):
         self.log.info('Loading fact table')
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
         del_stmt = "TRUNCATE {}".format(self.table)
-        if del_ind:
+        if self.del_ind:
             redshift.run(del_stmt)
         fact_insert = self.fact_insert
         redshift.run(fact_insert)
