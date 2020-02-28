@@ -36,7 +36,7 @@ class LoadDimensionOperator(BaseOperator):
         self.log.info('LoadDimensionOperator executing to load dimensions')
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
         del_stmt = "TRUNCATE {}".format(self.table)
-        if del_ind:
+        if self.del_ind:
             redshift.run(del_stmt)
         dim_insert = self.dim_insert
         redshift.run(dim_insert)
